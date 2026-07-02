@@ -1,10 +1,32 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createLoan } from "../services/loanService";
+import { getBooks } from "../services/bookService";
+import { getMembers } from "../services/memberService";
 
 function LoanForm({ onLoanAdded }) {
-  const [memberId, setMemberId] = useState("");
+  const [books, setBooks] = useState([]);
+  const [members, setMembers] = useState([]);
+
   const [bookId, setBookId] = useState("");
+  const [memberId, setMemberId] = useState("");
+
   const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const booksData = await getBooks();
+        const membersData = await getMembers();
+
+        setBooks(booksData);
+        setMembers(membersData);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    loadData();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,8 +39,8 @@ function LoanForm({ onLoanAdded }) {
 
       onLoanAdded(newLoan);
 
-      setMemberId("");
       setBookId("");
+      setMemberId("");
       setMessage("Loan created successfully.");
     } catch (error) {
       setMessage(
@@ -34,31 +56,53 @@ function LoanForm({ onLoanAdded }) {
 
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Member ID</label>
+          <label>Member</label>
           <br />
-          <input
-            type="text"
+
+          <select
             value={memberId}
             onChange={(e) =>
               setMemberId(e.target.value)
             }
             required
-          />
+          >
+            <option value="">Select Member</option>
+
+            {members.map((member) => (
+              <option
+                key={member._id}
+                value={member._id}
+              >
+                {member.name}
+              </option>
+            ))}
+          </select>
         </div>
 
         <br />
 
         <div>
-          <label>Book ID</label>
+          <label>Book</label>
           <br />
-          <input
-            type="text"
+
+          <select
             value={bookId}
             onChange={(e) =>
               setBookId(e.target.value)
             }
             required
-          />
+          >
+            <option value="">Select Book</option>
+
+            {books.map((book) => (
+              <option
+                key={book._id}
+                value={book._id}
+              >
+                {book.title}
+              </option>
+            ))}
+          </select>
         </div>
 
         <br />
