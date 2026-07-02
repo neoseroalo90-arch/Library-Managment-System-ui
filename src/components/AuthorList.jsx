@@ -9,36 +9,106 @@ function AuthorList({
   }
 
   if (error) {
-    return <p>{error}</p>;
+    return (
+      <p
+        style={{
+          color: "red",
+          fontWeight: "bold",
+        }}
+      >
+        {error}
+      </p>
+    );
   }
 
   if (authors.length === 0) {
-    return <p>No authors found.</p>;
+    return (
+      <p
+        style={{
+          fontStyle: "italic",
+        }}
+      >
+        No authors have been added yet.
+      </p>
+    );
   }
 
   return (
-    <>
-      <h2>Authors</h2>
+    <div
+      style={{
+        backgroundColor: "#ffffff",
+        padding: "25px",
+        borderRadius: "10px",
+        boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+      }}
+    >
+      <h2
+        style={{
+          marginTop: 0,
+          marginBottom: "20px",
+        }}
+      >
+        Existing Authors
+      </h2>
 
-      <table border="1" cellPadding="10">
-        <thead>
+      <table
+        style={{
+          width: "100%",
+          borderCollapse: "collapse",
+        }}
+      >
+        <thead
+          style={{
+            backgroundColor: "#1d7bff",
+            color: "#ffffff",
+          }}
+        >
           <tr>
-            <th>Name</th>
-            <th>Nationality</th>
-            <th>Action</th>
+            <th style={{ padding: "12px" }}>
+              Name
+            </th>
+
+            <th style={{ padding: "12px" }}>
+              Nationality
+            </th>
+
+            <th style={{ padding: "12px" }}>
+              Action
+            </th>
           </tr>
         </thead>
 
         <tbody>
           {authors.map((author) => (
-            <tr key={author._id}>
-              <td>{author.name}</td>
-              <td>{author.nationality}</td>
-              <td>
+            <tr
+              key={author._id}
+              style={{
+                borderBottom: "1px solid #ddd",
+                textAlign: "center",
+              }}
+            >
+              <td style={{ padding: "12px" }}>
+                {author.name}
+              </td>
+
+              <td style={{ padding: "12px" }}>
+                {author.nationality}
+              </td>
+
+              <td style={{ padding: "12px" }}>
                 <button
                   onClick={() =>
                     onDeleteAuthor(author._id)
                   }
+                  style={{
+                    backgroundColor: "#ef4444",
+                    color: "#ffffff",
+                    border: "none",
+                    padding: "8px 14px",
+                    borderRadius: "5px",
+                    cursor: "pointer",
+                    fontWeight: "bold",
+                  }}
                 >
                   Delete
                 </button>
@@ -47,7 +117,7 @@ function AuthorList({
           ))}
         </tbody>
       </table>
-    </>
+    </div>
   );
 }
 

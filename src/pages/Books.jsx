@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import BookForm from "../components/BookForm";
 import BookList from "../components/BookList";
-
 import {
   getBooks,
   deleteBook,
@@ -16,13 +15,15 @@ function Books() {
   const loadBooks = async () => {
     try {
       setIsLoading(true);
-      setError("");
 
       const data = await getBooks();
+
       setBooks(data);
-    } catch (err) {
+
+      setError("");
+    } catch (error) {
       setError(
-        err.response?.data?.message ||
+        error.response?.data?.message ||
           "Failed to load books."
       );
     } finally {
@@ -34,50 +35,34 @@ function Books() {
     loadBooks();
   }, []);
 
-  const handleBookAdded = (newBook) => {
-    setBooks((currentBooks) => [
-      ...currentBooks,
-      newBook,
-    ]);
+  const handleBookAdded = (book) => {
+    setBooks((prev) => [...prev, book]);
   };
 
   const handleDeleteBook = async (id) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this book?"
+    await deleteBook(id);
+
+    setBooks((prev) =>
+      prev.filter((book) => book._id !== id)
     );
-
-    if (!confirmDelete) {
-      return;
-    }
-
-    try {
-      await deleteBook(id);
-
-      setBooks((currentBooks) =>
-        currentBooks.filter(
-          (book) => book._id !== id
-        )
-      );
-    } catch (err) {
-      alert(
-        err.response?.data?.message ||
-          "Failed to delete book."
-      );
-    }
   };
 
   return (
     <>
       <Navbar />
 
-      <main>
+      <main
+        style={{
+          maxWidth: "1100px",
+          margin: "0 auto",
+          padding: "20px",
+        }}
+      >
         <h1>Books</h1>
 
-        <BookForm
-          onBookAdded={handleBookAdded}
-        />
+        <p>Manage all books in the library.</p>
 
-        <hr />
+        <BookForm onBookAdded={handleBookAdded} />
 
         <BookList
           books={books}

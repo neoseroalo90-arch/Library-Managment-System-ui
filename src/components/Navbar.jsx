@@ -9,30 +9,81 @@ function Navbar() {
     navigate("/");
   };
 
+  const linkStyle = {
+    color: "#ffffff",
+    textDecoration: "none",
+    fontWeight: "500",
+    marginRight: "20px",
+  };
+
   return (
     <nav
       style={{
-        padding: "15px",
-        backgroundColor: "#f4f4f4",
-        marginBottom: "20px",
+        backgroundColor: "#096df8",
+        color: "#ffffff",
+        padding: "15px 30px",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        marginBottom: "30px",
       }}
     >
+      <h2
+        style={{
+          margin: 0,
+          fontSize: "22px",
+        }}
+      >
+        📚 Library Management System
+      </h2>
+
       {token ? (
-        <>
-          <Link to="/dashboard">Dashboard</Link> |{" "}
-          <Link to="/books">Books</Link> |{" "}
-          <Link to="/members">Members</Link> |{" "}
-          <Link to="/authors">Authors</Link> |{" "}
-          <Link to="/loans">Loans</Link> |{" "}
-          <button type="button" onClick={handleLogout}>
+        <div>
+          <Link style={linkStyle} to="/dashboard">
+            Dashboard
+          </Link>
+
+          <Link style={linkStyle} to="/books">
+            Books
+          </Link>
+
+          <Link style={linkStyle} to="/members">
+            Members
+          </Link>
+
+          <Link style={linkStyle} to="/authors">
+            Authors
+          </Link>
+
+          <Link style={linkStyle} to="/loans">
+            Loans
+          </Link>
+
+          <button
+            onClick={handleLogout}
+            style={{
+              padding: "8px 16px",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+              backgroundColor: "#ef4444",
+              color: "#ffffff",
+              fontWeight: "bold",
+            }}
+          >
             Logout
           </button>
-        </>
+        </div>
       ) : (
-        <>
-          <Link to="/">Login</Link> |{" "}
-          <Link to="/register">Register</Link>
-        </>
+        <div>
+          <Link style={linkStyle} to="/">
+            Login
+          </Link>
+
+          <Link style={linkStyle} to="/register">
+            Register
+          </Link>
+        </div>
       )}
     </nav>
   );

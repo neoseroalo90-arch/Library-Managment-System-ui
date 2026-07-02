@@ -19,23 +19,47 @@ function AuthorForm({ onAuthorAdded }) {
 
       setName("");
       setNationality("");
-      setMessage("Author added successfully.");
+
+      setMessage("✅ Author added successfully.");
     } catch (error) {
       setMessage(
         error.response?.data?.message ||
-          "Failed to add author."
+          "❌ Failed to add author."
       );
     }
   };
 
   return (
-    <>
-      <h2>Add Author</h2>
+    <div
+      style={{
+        backgroundColor: "#ffffff",
+        padding: "25px",
+        borderRadius: "10px",
+        boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+        marginBottom: "30px",
+      }}
+    >
+      <h2
+        style={{
+          marginTop: 0,
+          marginBottom: "20px",
+        }}
+      >
+        Add Author
+      </h2>
 
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Name</label>
-          <br />
+        <div style={{ marginBottom: "15px" }}>
+          <label
+            style={{
+              display: "block",
+              fontWeight: "bold",
+              marginBottom: "5px",
+            }}
+          >
+            Name
+          </label>
+
           <input
             type="text"
             value={name}
@@ -43,14 +67,27 @@ function AuthorForm({ onAuthorAdded }) {
               setName(e.target.value)
             }
             required
+            style={{
+              width: "100%",
+              padding: "10px",
+              borderRadius: "5px",
+              border: "1px solid #ccc",
+              fontSize: "15px",
+            }}
           />
         </div>
 
-        <br />
+        <div style={{ marginBottom: "20px" }}>
+          <label
+            style={{
+              display: "block",
+              fontWeight: "bold",
+              marginBottom: "5px",
+            }}
+          >
+            Nationality
+          </label>
 
-        <div>
-          <label>Nationality</label>
-          <br />
           <input
             type="text"
             value={nationality}
@@ -58,18 +95,44 @@ function AuthorForm({ onAuthorAdded }) {
               setNationality(e.target.value)
             }
             required
+            style={{
+              width: "100%",
+              padding: "10px",
+              borderRadius: "5px",
+              border: "1px solid #ccc",
+              fontSize: "15px",
+            }}
           />
         </div>
 
-        <br />
-
-        <button type="submit">
+        <button
+          type="submit"
+          style={{
+            backgroundColor: "#2563eb",
+            color: "#ffffff",
+            border: "none",
+            padding: "10px 20px",
+            borderRadius: "5px",
+            cursor: "pointer",
+            fontWeight: "bold",
+            fontSize: "15px",
+          }}
+        >
           Add Author
         </button>
       </form>
 
-      {message && <p>{message}</p>}
-    </>
+      {message && (
+        <p
+          style={{
+            marginTop: "20px",
+            fontWeight: "bold",
+          }}
+        >
+          {message}
+        </p>
+      )}
+    </div>
   );
 }
 

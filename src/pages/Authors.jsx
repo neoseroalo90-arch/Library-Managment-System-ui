@@ -23,7 +23,7 @@ function Authors() {
     } catch (err) {
       setError(
         err.response?.data?.message ||
-        "Failed to load authors."
+          "Failed to load authors."
       );
     } finally {
       setIsLoading(false);
@@ -46,9 +46,7 @@ function Authors() {
       "Are you sure you want to delete this author?"
     );
 
-    if (!confirmDelete) {
-      return;
-    }
+    if (!confirmDelete) return;
 
     try {
       await deleteAuthor(id);
@@ -61,7 +59,7 @@ function Authors() {
     } catch (err) {
       alert(
         err.response?.data?.message ||
-        "Failed to delete author."
+          "Failed to delete author."
       );
     }
   };
@@ -70,14 +68,27 @@ function Authors() {
     <>
       <Navbar />
 
-      <main>
+      <main
+        style={{
+          maxWidth: "1100px",
+          margin: "0 auto",
+          padding: "20px",
+        }}
+      >
         <h1>Authors</h1>
+
+        <p
+          style={{
+            color: "#555",
+            marginBottom: "30px",
+          }}
+        >
+          Manage all authors in the library.
+        </p>
 
         <AuthorForm
           onAuthorAdded={handleAuthorAdded}
         />
-
-        <hr />
 
         <AuthorList
           authors={authors}

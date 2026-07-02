@@ -9,48 +9,124 @@ function LoanList({
   }
 
   if (error) {
-    return <p>{error}</p>;
+    return (
+      <p
+        style={{
+          color: "red",
+          fontWeight: "bold",
+        }}
+      >
+        {error}
+      </p>
+    );
   }
 
   if (loans.length === 0) {
-    return <p>No loans found.</p>;
+    return (
+      <p
+        style={{
+          fontStyle: "italic",
+        }}
+      >
+        No loans have been created yet.
+      </p>
+    );
   }
 
   return (
-    <>
-      <h2>Loans</h2>
+    <div
+      style={{
+        backgroundColor: "#ffffff",
+        padding: "25px",
+        borderRadius: "10px",
+        boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+      }}
+    >
+      <h2
+        style={{
+          marginTop: 0,
+          marginBottom: "20px",
+        }}
+      >
+        Existing Loans
+      </h2>
 
-      <table border="1" cellPadding="10">
-        <thead>
+      <table
+        style={{
+          width: "100%",
+          borderCollapse: "collapse",
+        }}
+      >
+        <thead
+          style={{
+            backgroundColor: "#1576ff",
+            color: "#ffffff",
+          }}
+        >
           <tr>
-            <th>Member ID</th>
-            <th>Book ID</th>
-            <th>Loan Date</th>
-            <th>Returned</th>
-            <th>Action</th>
+            <th style={{ padding: "12px" }}>
+              Member
+            </th>
+
+            <th style={{ padding: "12px" }}>
+              Book
+            </th>
+
+            <th style={{ padding: "12px" }}>
+              Loan Date
+            </th>
+
+            <th style={{ padding: "12px" }}>
+              Returned
+            </th>
+
+            <th style={{ padding: "12px" }}>
+              Action
+            </th>
           </tr>
         </thead>
 
         <tbody>
           {loans.map((loan) => (
-            <tr key={loan._id}>
-              <td>{loan.memberId}</td>
-              <td>{loan.bookId}</td>
-              <td>
+            <tr
+              key={loan._id}
+              style={{
+                borderBottom: "1px solid #ddd",
+                textAlign: "center",
+              }}
+            >
+              <td style={{ padding: "12px" }}>
+                {loan.memberId?.name || loan.memberId}
+              </td>
+
+              <td style={{ padding: "12px" }}>
+                {loan.bookId?.title || loan.bookId}
+              </td>
+
+              <td style={{ padding: "12px" }}>
                 {new Date(
                   loan.loanDate
                 ).toLocaleDateString()}
               </td>
-              <td>
-                {loan.returned
-                  ? "Yes"
-                  : "No"}
+
+              <td style={{ padding: "12px" }}>
+                {loan.returned ? "✅ Yes" : "❌ No"}
               </td>
-              <td>
+
+              <td style={{ padding: "12px" }}>
                 <button
                   onClick={() =>
                     onDeleteLoan(loan._id)
                   }
+                  style={{
+                    backgroundColor: "#ef4444",
+                    color: "#ffffff",
+                    border: "none",
+                    padding: "8px 14px",
+                    borderRadius: "5px",
+                    cursor: "pointer",
+                    fontWeight: "bold",
+                  }}
                 >
                   Delete
                 </button>
@@ -59,7 +135,7 @@ function LoanList({
           ))}
         </tbody>
       </table>
-    </>
+    </div>
   );
 }
 

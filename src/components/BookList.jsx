@@ -9,41 +9,103 @@ function BookList({
   }
 
   if (error) {
-    return <p>{error}</p>;
+    return (
+      <p
+        style={{
+          color: "red",
+          fontWeight: "bold",
+        }}
+      >
+        {error}
+      </p>
+    );
   }
 
   if (books.length === 0) {
-    return <p>No books found.</p>;
+    return (
+      <p
+        style={{
+          fontStyle: "italic",
+        }}
+      >
+        No books have been added yet.
+      </p>
+    );
   }
 
   return (
-    <>
-      <h2>Books</h2>
+    <div
+      style={{
+        backgroundColor: "#ffffff",
+        padding: "25px",
+        borderRadius: "10px",
+        boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+      }}
+    >
+      <h2
+        style={{
+          marginTop: 0,
+          marginBottom: "20px",
+        }}
+      >
+        Existing Books
+      </h2>
 
-      <table border="1" cellPadding="10">
-        <thead>
+      <table
+        style={{
+          width: "100%",
+          borderCollapse: "collapse",
+        }}
+      >
+        <thead
+          style={{
+            backgroundColor: "#0b71ff",
+            color: "#ffffff",
+          }}
+        >
           <tr>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Available</th>
-            <th>Action</th>
+            <th style={{ padding: "12px" }}>Title</th>
+            <th style={{ padding: "12px" }}>Author</th>
+            <th style={{ padding: "12px" }}>Available</th>
+            <th style={{ padding: "12px" }}>Action</th>
           </tr>
         </thead>
 
         <tbody>
           {books.map((book) => (
-            <tr key={book._id}>
-              <td>{book.title}</td>
-              <td>{book.author}</td>
-              <td>
-                {book.available ? "Yes" : "No"}
+            <tr
+              key={book._id}
+              style={{
+                borderBottom: "1px solid #ddd",
+                textAlign: "center",
+              }}
+            >
+              <td style={{ padding: "12px" }}>
+                {book.title}
               </td>
 
-              <td>
+              <td style={{ padding: "12px" }}>
+                {book.author}
+              </td>
+
+              <td style={{ padding: "12px" }}>
+                {book.available ? "✅ Yes" : "❌ No"}
+              </td>
+
+              <td style={{ padding: "12px" }}>
                 <button
                   onClick={() =>
                     onDeleteBook(book._id)
                   }
+                  style={{
+                    backgroundColor: "#ef4444",
+                    color: "#ffffff",
+                    border: "none",
+                    padding: "8px 14px",
+                    borderRadius: "5px",
+                    cursor: "pointer",
+                    fontWeight: "bold",
+                  }}
                 >
                   Delete
                 </button>
@@ -52,7 +114,7 @@ function BookList({
           ))}
         </tbody>
       </table>
-    </>
+    </div>
   );
 }
 

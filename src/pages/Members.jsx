@@ -46,9 +46,7 @@ function Members() {
       "Are you sure you want to delete this member?"
     );
 
-    if (!confirmDelete) {
-      return;
-    }
+    if (!confirmDelete) return;
 
     try {
       await deleteMember(id);
@@ -70,14 +68,27 @@ function Members() {
     <>
       <Navbar />
 
-      <main>
+      <main
+        style={{
+          maxWidth: "1100px",
+          margin: "0 auto",
+          padding: "20px",
+        }}
+      >
         <h1>Members</h1>
+
+        <p
+          style={{
+            color: "#555",
+            marginBottom: "30px",
+          }}
+        >
+          Manage all registered library members.
+        </p>
 
         <MemberForm
           onMemberAdded={handleMemberAdded}
         />
-
-        <hr />
 
         <MemberList
           members={members}

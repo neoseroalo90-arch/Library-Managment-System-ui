@@ -41,30 +41,58 @@ function LoanForm({ onLoanAdded }) {
 
       setBookId("");
       setMemberId("");
-      setMessage("Loan created successfully.");
+
+      setMessage("✅ Loan created successfully.");
     } catch (error) {
       setMessage(
         error.response?.data?.message ||
-          "Failed to create loan."
+          "❌ Failed to create loan."
       );
     }
   };
 
   return (
-    <>
-      <h2>Create Loan</h2>
+    <div
+      style={{
+        backgroundColor: "#ffffff",
+        padding: "25px",
+        borderRadius: "10px",
+        boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+        marginBottom: "30px",
+      }}
+    >
+      <h2
+        style={{
+          marginTop: 0,
+          marginBottom: "20px",
+        }}
+      >
+        Create Loan
+      </h2>
 
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Member</label>
-          <br />
+        <div style={{ marginBottom: "15px" }}>
+          <label
+            style={{
+              display: "block",
+              fontWeight: "bold",
+              marginBottom: "5px",
+            }}
+          >
+            Member
+          </label>
 
           <select
             value={memberId}
-            onChange={(e) =>
-              setMemberId(e.target.value)
-            }
+            onChange={(e) => setMemberId(e.target.value)}
             required
+            style={{
+              width: "100%",
+              padding: "10px",
+              borderRadius: "5px",
+              border: "1px solid #ccc",
+              fontSize: "15px",
+            }}
           >
             <option value="">Select Member</option>
 
@@ -79,18 +107,28 @@ function LoanForm({ onLoanAdded }) {
           </select>
         </div>
 
-        <br />
-
-        <div>
-          <label>Book</label>
-          <br />
+        <div style={{ marginBottom: "20px" }}>
+          <label
+            style={{
+              display: "block",
+              fontWeight: "bold",
+              marginBottom: "5px",
+            }}
+          >
+            Book
+          </label>
 
           <select
             value={bookId}
-            onChange={(e) =>
-              setBookId(e.target.value)
-            }
+            onChange={(e) => setBookId(e.target.value)}
             required
+            style={{
+              width: "100%",
+              padding: "10px",
+              borderRadius: "5px",
+              border: "1px solid #ccc",
+              fontSize: "15px",
+            }}
           >
             <option value="">Select Book</option>
 
@@ -105,15 +143,34 @@ function LoanForm({ onLoanAdded }) {
           </select>
         </div>
 
-        <br />
-
-        <button type="submit">
+        <button
+          type="submit"
+          style={{
+            backgroundColor: "#2563eb",
+            color: "#ffffff",
+            border: "none",
+            padding: "10px 20px",
+            borderRadius: "5px",
+            cursor: "pointer",
+            fontWeight: "bold",
+            fontSize: "15px",
+          }}
+        >
           Create Loan
         </button>
       </form>
 
-      {message && <p>{message}</p>}
-    </>
+      {message && (
+        <p
+          style={{
+            marginTop: "20px",
+            fontWeight: "bold",
+          }}
+        >
+          {message}
+        </p>
+      )}
+    </div>
   );
 }
 

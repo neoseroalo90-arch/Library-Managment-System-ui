@@ -23,7 +23,7 @@ function Loans() {
     } catch (err) {
       setError(
         err.response?.data?.message ||
-        "Failed to load loans."
+          "Failed to load loans."
       );
     } finally {
       setIsLoading(false);
@@ -46,9 +46,7 @@ function Loans() {
       "Are you sure you want to delete this loan?"
     );
 
-    if (!confirmDelete) {
-      return;
-    }
+    if (!confirmDelete) return;
 
     try {
       await deleteLoan(id);
@@ -70,14 +68,27 @@ function Loans() {
     <>
       <Navbar />
 
-      <main>
+      <main
+        style={{
+          maxWidth: "1100px",
+          margin: "0 auto",
+          padding: "20px",
+        }}
+      >
         <h1>Loans</h1>
+
+        <p
+          style={{
+            color: "#555",
+            marginBottom: "30px",
+          }}
+        >
+          Manage all library loans and returns.
+        </p>
 
         <LoanForm
           onLoanAdded={handleLoanAdded}
         />
-
-        <hr />
 
         <LoanList
           loans={loans}
